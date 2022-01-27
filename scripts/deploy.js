@@ -8,29 +8,28 @@ const main = async () => {
 			'https://i.pinimg.com/originals/f7/de/cd/f7decda28c103d54294920aa9eb095a7.jpg',
 		],
 		[13000, 15000, 14000], // HP values
-		[100000, 80000, 90000] // Attack damage values
+		[100000, 80000, 90000], // Attack damage values
+		'Beerus', // Boss name
+		'https://qph.fs.quoracdn.net/main-qimg-75d1ecf38c3dd5a96dc248a6181be21c', // Boss image
+		100000000, // Boss hp
+		1000 // Boss attack damage
 	);
 	await gameContract.deployed();
 	console.log('Contract deployed to:', gameContract.address);
 
 	let txn;
-	txn = await gameContract.mintCharacterNFT(0);
-	await txn.wait();
-	console.log('Minted NFT #1');
-
-	txn = await gameContract.mintCharacterNFT(1);
-	await txn.wait();
-	console.log('Minted NFT #2');
-
+	// We only have three characters.
+	// an NFT w/ the character at index 2 of our array.
 	txn = await gameContract.mintCharacterNFT(2);
 	await txn.wait();
-	console.log('Minted NFT #3');
 
-	txn = await gameContract.mintCharacterNFT(1);
+	txn = await gameContract.attackBoss();
 	await txn.wait();
-	console.log('Minted NFT #4');
 
-	console.log('Done deploying and minting!');
+	txn = await gameContract.attackBoss();
+	await txn.wait();
+
+	console.log('Done!');
 };
 
 const runMain = async () => {
